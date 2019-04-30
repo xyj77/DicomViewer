@@ -4,30 +4,27 @@ Created on Mon Apr  2 15:18:08 2018
 
 @author: rain
 """
+
+import os
+import re
+import xlwt
+import numpy as np
 from pylab import mpl
 mpl.rcParams['font.sans-serif'] = ['FangSong'] # 指定默认字体
 mpl.rcParams['axes.unicode_minus'] = False # 解决保存图像是负号'-'显示为方块的问题
 import warnings
 warnings.filterwarnings("ignore")
-import numpy as np
-import re
+
 #np.set_printoptions(threshold=np.inf)
 import tkinter as tk
 from PIL import Image, ImageTk
-from keras.models import model_from_json
-import SimpleITK as sitk
-import xlwt
-import os
 from tkinter.filedialog import askdirectory
 import matplotlib.pyplot as plt
 import tensorflow as tf
-from diagnose import predict22,predict33
 
-def loadFile(filename):
-    ds = sitk.ReadImage(filename)
-    img_array = sitk.GetArrayFromImage(ds)
-    frame_num,width,height=img_array.shape
-    return img_array
+from diagnose import predict22,predict33
+from dignosis import loadFile, predict, predict2, predict3, predict3d
+
 smallflag=0#判断前几个文件如1是不是要补两个0 001
 m5=np.matrix([])
 first_x=0
@@ -306,6 +303,7 @@ def he():
 def he2():
     global filename,i,big,m10,m11,m12,m13,m14,path,second_x,second_y,first_x,first_y
     predict33(filename,i,big,m10,m11,m12,m13,m14,path,second_x,second_y,first_x,first_y)
+
 s2 = tk.Scale(root,
       from_ = 10,#设置最小值
       to = 40950,#设置最大值
